@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="680"
+        x:Class="minutnik.MainWindow"
+        Title="Minutnik"
+        Width="800"
+        Height="680"
+        MinWidth="600"
+        MinHeight="600"
+        Background="#F2F3EF"
+        FontFamily="Inter">
+    <Grid Margin="36" RowDefinitions="Auto,*">
+        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,24">
+            <StackPanel Spacing="3">
+                <TextBlock Text="MINUTNIK" FontSize="13" FontWeight="Bold" Foreground="#28624F" />
+                <TextBlock Text="Rytm pracy i odpoczynku" FontSize="14" Foreground="#65736C" />
+            </StackPanel>
+            <Border Grid.Column="1" Padding="12,7" Background="#E0EAE3" CornerRadius="4" VerticalAlignment="Center">
+                <TextBlock Text="POMODORO" FontSize="11" FontWeight="Bold" Foreground="#28624F" />
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E1E6E1" BorderThickness="1" CornerRadius="8" Padding="36">
+            <Grid RowDefinitions="Auto,*,Auto,Auto">
+                <StackPanel HorizontalAlignment="Center" Spacing="7">
+                    <TextBlock x:Name="PhaseText" Text="PRACA" HorizontalAlignment="Center" FontSize="13" FontWeight="Bold" Foreground="#28624F" />
+                    <TextBlock x:Name="PhaseDetailText" Text="Pełne skupienie" HorizontalAlignment="Center" FontSize="15" Foreground="#65736C" />
+                </StackPanel>
+
+                <Grid Grid.Row="1" ColumnDefinitions="*,Auto,*" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="TimeText" Grid.Column="0" Text="25:00" VerticalAlignment="Center" FontSize="104" FontWeight="SemiBold" Foreground="#202B25" />
+                    <Border Grid.Column="1" Width="1" Height="82" Background="#E1E6E1" Margin="34,0" />
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Spacing="5">
+                        <TextBlock Text="CYKLE" FontSize="12" FontWeight="Bold" Foreground="#65736C" />
+                        <TextBlock x:Name="CycleText" Text="0" FontSize="38" FontWeight="SemiBold" Foreground="#28624F" />
+                        <TextBlock Text="ukończone" FontSize="13" Foreground="#65736C" />
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="2" Height="1" Background="#E1E6E1" Margin="0,0,0,24" />
+
+                <Grid Grid.Row="3" RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" ColumnSpacing="20" RowSpacing="22">
+                    <StackPanel Grid.Column="0" Spacing="8">
+                        <TextBlock Text="PRACA · MINUTY" FontSize="11" FontWeight="Bold" Foreground="#65736C" />
+                        <NumericUpDown x:Name="WorkDurationInput" Value="25" Minimum="1" Maximum="120" Increment="1" FormatString="0" Height="44" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Spacing="8">
+                        <TextBlock Text="PRZERWA · MINUTY" FontSize="11" FontWeight="Bold" Foreground="#65736C" />
+                        <NumericUpDown x:Name="BreakDurationInput" Value="5" Minimum="1" Maximum="120" Increment="1" FormatString="0" Height="44" />
+                    </StackPanel>
+
+                    <Button x:Name="StartPauseButton" Grid.Row="1" Grid.Column="0" Content="Uruchom" Click="OnStartPauseClick" Height="48" Background="#28624F" Foreground="White" FontSize="15" FontWeight="Bold" CornerRadius="4" />
+                    <Button Grid.Row="1" Grid.Column="1" Content="Resetuj" Click="OnResetClick" Height="48" Background="#F2F3EF" Foreground="#202B25" FontSize="15" FontWeight="Bold" CornerRadius="4" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
