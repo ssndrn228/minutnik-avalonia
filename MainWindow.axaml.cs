@@ -1,11 +1,13 @@
 using Avalonia.Controls;
 using Avalonia.Threading;
 using System;
+using System.Collections.Generic;
 
 namespace minutnik;
 
 public partial class MainWindow : Window
 {
+    private readonly List<string> _history = new();
     private readonly DispatcherTimer timer;
     private int remainingSeconds;
     private int completedCycles;
@@ -17,7 +19,20 @@ public partial class MainWindow : Window
 
         timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
         timer.Tick += OnTimerTick;
+
+        WorkDurationInput.ValueChanged += OnDurationChanged;
+        BreakDurationInput.ValueChanged += OnDurationChanged;
+
         ResetTimer();
+    }
+
+    private void OnDurationChanged(object? sender, NumericUpDownValueChangedEventArgs e)
+    {
+        if (!timer.IsEnabled && !isBreakPhase)
+        {
+            remainingSeconds = GetDurationSeconds(WorkDurationInput);
+            UpdateDisplay();
+        }
     }
 
     private void OnStartPauseClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -26,7 +41,6 @@ public partial class MainWindow : Window
         {
             timer.Stop();
             StartPauseButton.Content = "Wznów";
-            PhaseDetailText.Text = isBreakPhase ? "Chwila oddechu" : "Pełne skupienie";
             return;
         }
 
@@ -48,6 +62,9 @@ public partial class MainWindow : Window
             if (isBreakPhase)
             {
                 completedCycles++;
+                _history.Add($"{DateTime.Now:HH:mm} - cykl {completedCycles}");
+                HistoryList.ItemsSource = _history.ToArray();
+
                 isBreakPhase = false;
                 remainingSeconds = GetDurationSeconds(WorkDurationInput);
             }

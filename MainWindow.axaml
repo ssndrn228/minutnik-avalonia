@@ -1,60 +1,189 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="680"
         x:Class="minutnik.MainWindow"
-        Title="Minutnik"
+        Title="Minutnik Pomodoro"
         Width="800"
-        Height="680"
+        Height="750"
         MinWidth="600"
         MinHeight="600"
-        Background="#F2F3EF"
-        FontFamily="Inter">
-    <Grid Margin="36" RowDefinitions="Auto,*">
-        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,24">
-            <StackPanel Spacing="3">
-                <TextBlock Text="MINUTNIK" FontSize="13" FontWeight="Bold" Foreground="#28624F" />
-                <TextBlock Text="Rytm pracy i odpoczynku" FontSize="14" Foreground="#65736C" />
-            </StackPanel>
-            <Border Grid.Column="1" Padding="12,7" Background="#E0EAE3" CornerRadius="4" VerticalAlignment="Center">
-                <TextBlock Text="POMODORO" FontSize="11" FontWeight="Bold" Foreground="#28624F" />
-            </Border>
-        </Grid>
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F7F5">
 
-        <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#E1E6E1" BorderThickness="1" CornerRadius="8" Padding="36">
-            <Grid RowDefinitions="Auto,*,Auto,Auto">
-                <StackPanel HorizontalAlignment="Center" Spacing="7">
-                    <TextBlock x:Name="PhaseText" Text="PRACA" HorizontalAlignment="Center" FontSize="13" FontWeight="Bold" Foreground="#28624F" />
-                    <TextBlock x:Name="PhaseDetailText" Text="Pełne skupienie" HorizontalAlignment="Center" FontSize="15" Foreground="#65736C" />
+    <Window.Styles>
+    <Style Selector="Button">
+        <Setter Property="Background" Value="#28624F"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#28624F"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="22,12"/>
+    </Style>
+
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#3D8068"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+    </Style>
+
+    <Style Selector="Button:pointerover">
+        <Setter Property="Background" Value="#3D8068"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#173D30"/>
+    </Style>
+
+    <Style Selector="Button:pressed">
+        <Setter Property="Background" Value="#173D30"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+    </Style>
+
+    <Style Selector="NumericUpDown">
+        <Setter Property="Foreground" Value="#173D30"/>
+        <Setter Property="Background" Value="#FFFFFF"/>
+    </Style>
+    </Window.Styles>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="30" Spacing="20">
+
+            <TextBlock Text="Mój minutnik"
+                       FontSize="32"
+                       FontWeight="Bold"
+                       Foreground="#28624F"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Czas na skupienie i zasłużony odpoczynek"
+                       FontSize="15"
+                       Foreground="#65736C"
+                       HorizontalAlignment="Center"/>
+
+            <Border Background="#FFFFFF"
+                    CornerRadius="20"
+                    Padding="25">
+
+                <StackPanel Spacing="15">
+
+                    <TextBlock x:Name="PhaseText"
+                               Text="PRACA"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="#28624F"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="TimeText"
+                               Text="25:00"
+                               FontSize="76"
+                               FontWeight="Bold"
+                               Foreground="#28624F"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="PhaseDetailText"
+                               Text="Pełne skupienie"
+                               FontSize="16"
+                               Foreground="#65736C"
+                               HorizontalAlignment="Center"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Spacing="12">
+
+                        <Button x:Name="StartPauseButton"
+                                Content="Uruchom"
+                                Click="OnStartPauseClick"/>
+
+                        <Button x:Name="ResetButton"
+                                Content="Resetuj"
+                                Click="OnResetClick"
+                                Background="#E1EAE5"
+                                Foreground="#173D30"
+                                BorderBrush="#28624F"/>
+
+                    </StackPanel>
+
                 </StackPanel>
 
-                <Grid Grid.Row="1" ColumnDefinitions="*,Auto,*" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock x:Name="TimeText" Grid.Column="0" Text="25:00" VerticalAlignment="Center" FontSize="104" FontWeight="SemiBold" Foreground="#202B25" />
-                    <Border Grid.Column="1" Width="1" Height="82" Background="#E1E6E1" Margin="34,0" />
-                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Spacing="5">
-                        <TextBlock Text="CYKLE" FontSize="12" FontWeight="Bold" Foreground="#65736C" />
-                        <TextBlock x:Name="CycleText" Text="0" FontSize="38" FontWeight="SemiBold" Foreground="#28624F" />
-                        <TextBlock Text="ukończone" FontSize="13" Foreground="#65736C" />
-                    </StackPanel>
-                </Grid>
+            </Border>
 
-                <Border Grid.Row="2" Height="1" Background="#E1E6E1" Margin="0,0,0,24" />
+            <Border Background="#FFFFFF"
+                    CornerRadius="16"
+                    Padding="20">
 
-                <Grid Grid.Row="3" RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" ColumnSpacing="20" RowSpacing="22">
-                    <StackPanel Grid.Column="0" Spacing="8">
-                        <TextBlock Text="PRACA · MINUTY" FontSize="11" FontWeight="Bold" Foreground="#65736C" />
-                        <NumericUpDown x:Name="WorkDurationInput" Value="25" Minimum="1" Maximum="120" Increment="1" FormatString="0" Height="44" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Spacing="8">
-                        <TextBlock Text="PRZERWA · MINUTY" FontSize="11" FontWeight="Bold" Foreground="#65736C" />
-                        <NumericUpDown x:Name="BreakDurationInput" Value="5" Minimum="1" Maximum="120" Increment="1" FormatString="0" Height="44" />
-                    </StackPanel>
+                <StackPanel Spacing="15">
 
-                    <Button x:Name="StartPauseButton" Grid.Row="1" Grid.Column="0" Content="Uruchom" Click="OnStartPauseClick" Height="48" Background="#28624F" Foreground="White" FontSize="15" FontWeight="Bold" CornerRadius="4" />
-                    <Button Grid.Row="1" Grid.Column="1" Content="Resetuj" Click="OnResetClick" Height="48" Background="#F2F3EF" Foreground="#202B25" FontSize="15" FontWeight="Bold" CornerRadius="4" />
-                </Grid>
-            </Grid>
-        </Border>
-    </Grid>
+                    <TextBlock Text="Ustawienia czasu"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#28624F"/>
+
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="20">
+
+                        <StackPanel Grid.Column="0" Spacing="8">
+                            <TextBlock Text="Praca (minuty)"
+                                       FontSize="14"
+                                       Foreground="#65736C"/>
+
+                            <NumericUpDown x:Name="WorkDurationInput"
+                                           Value="25"
+                                           Minimum="1"
+                                           Maximum="120"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="8">
+                            <TextBlock Text="Przerwa (minuty)"
+                                       FontSize="14"
+                                       Foreground="#65736C"/>
+
+                            <NumericUpDown x:Name="BreakDurationInput"
+                                           Value="5"
+                                           Minimum="1"
+                                           Maximum="120"
+                                           Increment="1"
+                                           FormatString="0"/>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <TextBlock Text="Po zmianie czasu naciśnij Resetuj, aby ustawić nowy czas na liczniku."
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               Foreground="#65736C"/>
+
+                </StackPanel>
+
+            </Border>
+
+            <Border Background="#FFFFFF"
+                    CornerRadius="16"
+                    Padding="20">
+
+                <StackPanel Spacing="10">
+
+                    <TextBlock Text="Ukończone cykle"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#28624F"/>
+
+                    <TextBlock x:Name="CycleText"
+                               Text="0"
+                               FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="#28624F"/>
+
+                    <TextBlock Text="HISTORIA CYKLI"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Foreground="#65736C"
+                               Margin="0,10,0,0"/>
+
+                    <ListBox x:Name="HistoryList"
+                             Height="120"
+                             MinWidth="200"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+
 </Window>
