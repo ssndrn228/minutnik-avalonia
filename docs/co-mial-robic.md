@@ -27,5 +27,13 @@
 ## 4. Do ustalenia
 
 - Czy historia ukończonych cykli powinna być zachowywana po zamknięciu aplikacji?
-- Czy reset powinien zawsze rozpoczynać nowy czas pracy?
-- Czy reset podczas przerwy powinien pozostawiać liczbę ukończonych cykli bez zmian?
+
+## 5. Porównanie z siedmioma zasadami
+
+Przypomniałam sobie 3 z 7 zasad w całości. Częściowo pamiętałam też zasadę dotyczącą możliwości zmiany czasu pracy i przerwy, ale zapomniałam o domyślnych wartościach 25 i 5 minut.
+
+Nie uwzględniłam w opisie formatu czasu mm:ss, języka interfejsu i nazw w kodzie oraz braku dodatkowych bibliotek.
+
+## 6. Sytuacja, której nie obejmowały zasady
+
+Gdy nacisnę Resetuj podczas przerwy, program zatrzymuje minutnik, wraca do fazy pracy, ustawia początkowy czas pracy i zeruje licznik ukończonych cykli. Historia pozostaje bez zmian.
