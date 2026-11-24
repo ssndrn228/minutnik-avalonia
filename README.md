@@ -72,3 +72,33 @@ Aplikacja jest przeznaczona do ustawiania czasu w pełnych minutach.
 - DispatcherTimer
 
 Aplikacja nie wymaga dodatkowych bibliotek.
+
+## Analiza promptu z pokazu
+
+| Fragment promptu | Kategoria |
+|---|---|
+| Zbuduj minutnik. | Co ma powstać |
+| Ma odmierzać 25 minut pracy, potem 5 minut przerwy i liczyć skończone cykle. | Co ma powstać |
+| Obie długości mają być do zmiany w oknie. | Co ma powstać |
+| Jeden przycisk start/pauza, drugi reset. | Co ma powstać |
+| Czas widoczny jako mm:ss, licznik cykli widoczny obok. | Co ma powstać |
+| Po skończonej pracy przerwa ma ruszyć sama. | Co ma powstać |
+| Projekt ma być w Avalonia. | Jak ma być wykonane |
+| Interfejs po polsku. | Jak ma być wykonane |
+| Nazwy w kodzie po angielsku. | Jak ma być wykonane |
+| Bez dodatkowych bibliotek. | Jak ma być wykonane |
+| Cała logika w pliku `MainWindow.axaml.cs`. | Jak ma być wykonane |
+| Bez osobnych klas pośredniczących. | Jak ma być wykonane |
+
+Liczba elementów:
+- Co ma powstać: 6
+- Jak ma być wykonane: 6
+- Po czym poznać, że skończone: 0
+
+Najmniej jest informacji o tym, po czym poznać, że zadanie jest skończone. Prompt opisuje funkcje i sposób wykonania, ale nie podaje konkretnych warunków sprawdzenia gotowej aplikacji.
+
+## Reset podczas przerwy
+
+Po naciśnięciu Resetuj podczas przerwy licznik ukończonych cykli zostaje wyzerowany. Program wraca do fazy pracy i ustawia początkowy czas pracy. Historia ukończonych cykli pozostaje bez zmian.
+
+Takie zachowanie wybrał model, a nie ja. Nie określiłam wcześniej, co powinno się stać z licznikiem w takiej sytuacji. W kodzie metoda `ResetTimer()` ustawia `completedCycles` na `0`.
